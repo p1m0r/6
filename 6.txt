@@ -1,0 +1,49 @@
+import sys
+from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout
+from PyQt6.QtCore import Qt
+
+class MyApp(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        # Инициализация интерфейса
+        self.init_ui()
+
+    def init_ui(self):
+        # Создание виджетов
+        self.label = QLabel("Нажмите кнопку", self)
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.button = QPushButton("Нажми меня", self)
+        self.button.clicked.connect(self.on_button_click)
+
+        # Установка стилей
+        self.set_style()
+
+        # Вертикальное расположение
+        layout = QVBoxLayout()
+        layout.addWidget(self.label)
+        layout.addWidget(self.button)
+        self.setLayout(layout)
+
+        # Основные настройки окна
+        self.setWindowTitle("Пример PyQt6")
+        self.setGeometry(100, 100, 300, 200)
+        self.show()
+
+    def set_style(self):
+        self.label.setStyleSheet("font-size: 20px; color: blue;")
+        self.button.setStyleSheet("background-color: green; color: white; font-size: 16px;")
+
+    def on_button_click(self):
+        self.label.setText("Кнопка нажата!")
+        self.change_style()
+
+    def change_style(self):
+        self.label.setStyleSheet("font-size: 24px; color: red;")
+        self.button.setStyleSheet("background-color: orange; color: black; font-size: 18px;")
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = MyApp()
+    sys.exit(app.exec())
